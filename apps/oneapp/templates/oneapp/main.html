@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'oneapp/css/style.css' %}">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <div class = 'wrapper'>
+        <div class = 'header'>
+            <h2> Dashboard </h2>
+        </div>
+        <div class= 'box'>
+            <table class = "table table-hover">
+                <thead>
+                    <td>Order Id</td>
+                    <td>Name</td>
+                    <td>Date</td>
+                    <td>Billing Address</td>
+                    <td>Total</td>
+                    <td>Status</td>
+                </thead>
+                <tbody>
+                    {% for order in all_orders %}
+                    <tr scope = "row">
+                        <td>{{ order.id }}</td>
+                        <td>{{order.name}}</td>
+                        <td>{{order.date}}</td>
+                        <td>{{order.billing_address}}</td>
+                        <td>{{order.total}}</td>
+                        <form action = 'change_status' method ='post'>
+                        <td><select name = 'select_status' value ='{{order.status}}'>
+                            <option value="{{order.status}}">Order in process</option>
+                            <option value="{{order.status}}">Shipped</option>
+                            <option value="{{order.status}}">Cancelled</option>
+                        </td>
+                        </form>
+                        <!-- <td><a href = "/viewbook/{{book.id}}">View</a></td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
