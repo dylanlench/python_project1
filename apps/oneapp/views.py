@@ -60,3 +60,24 @@ def main(request):
             'all_orders' : Order.objects.all()
         }
         return render(request, 'oneapp/main.html', context)
+
+def orderpage(request, order_id):
+    if 'admin_id' not in request.session:
+        messages.error(request, 'please log in or register')
+        return redirect('/')
+    else:
+        this_order = Order.objects.get(id = order_id )
+        context = {
+            'all_products' : this_order
+        }
+        return render(request, "oneapp/order_page.html", context)
+
+def adminproducts(request):
+    if 'admin_id' not in request.session:
+        messages.error(request, 'please log in or register')
+        return redirect('/')
+    else:
+        context = {
+            'all_products' : Product.objects.all()
+        }
+        return render(request, 'oneapp/admin_products.html', context)

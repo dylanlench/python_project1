@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+
+    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'oneapp/css/style.css' %}">
     <title>Admin Dashboard</title>
 </head>
 <body>
     <div class = 'wrapper'>
-        <div class = 'header'>
             <nav>
                 <div class="nav-wrapper">
                     <a href="#!" class="brand-logo">Dashboard</a>
@@ -23,39 +24,43 @@
                     </ul>
                 </div>
             </nav>
-        </div>
         <div class= 'box'>
             <table class = "table table-hover">
                 <thead>
-                    <td>Order Id</td>
+                    <td>Picture</td>
+                    <td>Id</td>
                     <td>Name</td>
-                    <td>Date</td>
-                    <td>Billing Address</td>
-                    <td>Total</td>
-                    <td>Status</td>
+                    <td>Inventory Count</td>
+                    <td>Sold</td>
+                    <td>Action</td>
                 </thead>
                 <tbody>
-                    {% for order in all_orders %}
+                    {% for product in all_products %}
                     <tr scope = "row">
-                        <td><a href ='/order_show/{{order.id}}'>{{ order.id }}</a></td>
-                        <td>{{order.bfirst_name}}</td>
-                        <td>{{order.date}}</td>
-                        <td>{{order.baddress}}</td>
-                        <td>{{order.total}}</td>
-                        <td><select name = 'select_status'>
-                            <option value="Order in process">Order in process</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Cancelled">Cancelled</option>
-                        </td>
-                        <!-- <td><a href = "/viewbook/{{book.id}}">View</a></td> -->
+                        <td>picture placeholder</td>
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.inventory}}</td>
+                        <td>Quantity sold</td>
+                        <td><a class="waves-effect waves-red darken 1 btn modal-trigger" href="#modal1">edit</a> 
+                            <div id="modal1" class="modal">
+                                <div class="modal-content">
+                                    <h4>Modal Header</h4>
+                                    <p>A bunch of text</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                </div>
+                            </div> </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
+        </div>      
     </div>
 
+    <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <script type= 'text/javascript' src="{% static 'oneapp/js/script.js' %}"></script>
 </body>
 </html>
