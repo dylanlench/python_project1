@@ -8,7 +8,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
 def logandreg(request):
-    return render(request, "oneapp/index.html")
+    return render(request, "oneapp/admin.html")
 
 def register(request):
     errors = False
@@ -32,14 +32,14 @@ def register(request):
     )
 
     request.session['admin_id'] = admin.id
-    return redirect('/main')
+    return redirect('/order_dash')
 
 def login(request):
     try:
         admin = Admin.objects.get(email = request.POST['email'])
         if(bcrypt.checkpw(request.POST['password'].encode(), admin.password.encode())):
             request.session['admin_id'] = admin.id
-            return redirect('/main')
+            return redirect('/order_dash')
         else:
             messages.error(request, 'Invalid Credentials')
             return redirect('/')
@@ -51,7 +51,7 @@ def logout(request):
     request.session.clear()
     return redirect('/')
 
-def main(request):
+def order_dash(request):
     if 'admin_id' not in request.session:
         messages.error(request, 'please log in or register')
         return redirect('/')
@@ -59,7 +59,7 @@ def main(request):
         context = {
             'all_orders' : Order.objects.all()
         }
-        return render(request, 'oneapp/main.html', context)
+        return render(request, 'oneapp/order_dash.html', context)
 
 def orderpage(request, order_id):
     if 'admin_id' not in request.session:
@@ -70,7 +70,7 @@ def orderpage(request, order_id):
         context = {
             'all_products' : this_order
         }
-        return render(request, "oneapp/order_page.html", context)
+        return render(request, "oneapp/order_info.html", context)
 
 def adminproducts(request):
     if 'admin_id' not in request.session:
@@ -81,3 +81,12 @@ def adminproducts(request):
             'all_products' : Product.objects.all()
         }
         return render(request, 'oneapp/admin_products.html', context)
+
+def editproducts(request, prod_id):
+    return redirect('/')
+
+def updatestat(request, order_id):
+    this_order= Order.objects.get(id=order_id)
+    this_order.status = request.POST['select_status']
+    this_order.save()
+    return redirect('/order_dash')

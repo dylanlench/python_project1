@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^main$', views.main),
     url(r'^order_show/(?P<order_id>\d+)$', views.orderpage),
     url(r'^admin_products$', views.adminproducts),
+    url(r'^edit_prod/(?P<prod_id>\d+)$', views.editproducts),
+    url(r'^update_stat/(?P<order_id>\d+)$', views.updatestat),
 
 
 ]

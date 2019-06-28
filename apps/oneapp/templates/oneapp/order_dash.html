@@ -42,12 +42,15 @@
                         <td>{{order.date}}</td>
                         <td>{{order.baddress}}</td>
                         <td>{{order.total}}</td>
+                        <form action="/update_stat" method="post">
+                            {% csrf_token %}
                         <td><select name = 'select_status'>
                             <option value="Order in process">Order in process</option>
                             <option value="Shipped">Shipped</option>
                             <option value="Cancelled">Cancelled</option>
+                            </select>
                         </td>
-                        <!-- <td><a href = "/viewbook/{{book.id}}">View</a></td> -->
+                        </form>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -55,7 +58,8 @@
         </div>
     </div>
 
+    <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <script type= 'text/javascript' src="{% static 'oneapp/js/script.js' %}"></script>
 </body>
 </html>

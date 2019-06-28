@@ -42,22 +42,45 @@
                         <td>{{product.name}}</td>
                         <td>{{product.inventory}}</td>
                         <td>Quantity sold</td>
-                        <td><a class="waves-effect waves-red darken 1 btn modal-trigger" href="#modal1">edit</a> 
-                            <div id="modal1" class="modal">
-                                <div class="modal-content">
-                                    <h4>Modal Header</h4>
-                                    <p>A bunch of text</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                                </div>
-                            </div> </td>
+                        <td><a class="waves-effect waves-red darken 1 btn modal-trigger" href="#modal1">edit</a>  </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>      
     </div>
+    <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Edit Product - ID {{product.id}}</h4>
+                <form action="/edit_prod" method="post">
+                    {% csrf_token %}
+                    <p>
+                        <label for="name">Name:</label>
+                        <input type="name" name="name">
+                    </p>
+                    <p>
+                        <label for="description">Description:</label>
+                        <input type="description" name="description">
+                    </p>
+                    <p>
+                        Categories <select name = 'select_status'>
+                                        {% for product in all_products %}
+                                            <option value="Order in process">{{product.category}}</option>
+                                        {% endfor %}
+                    </p>   
+                    <p>
+                        Images
+                    </p>                             
+                    <input type="submit" value="Cancel">
+                    <input type="submit" value="Preview">
+                    <input type="submit" value="Update">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+        
 
     <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
